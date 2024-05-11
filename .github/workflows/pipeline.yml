@@ -53,7 +53,7 @@ jobs:
         docker push -a $ECR_REGISTRY/$ECR_REPOSITORY
 
     - name: Update Kube File
-      run: aws eks update-kubeconfig --name education-eks-cluster
+      run: aws eks update-kubeconfig --name g35-eks-cluster
 
     - name: Deploy to EKS
       run: |
