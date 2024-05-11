@@ -14,9 +14,14 @@ jobs:
         java-version: 17
         architecture: x64
     - uses: actions/checkout@v4
+        - name: Update aws access key
+          run: sed -i 's/<aws_access_key>/${{ secrets.AWS_ACCESS_KEY_ID_ORG }}/' src/main/resources/application.properties
+
+        - name: Update aws access secret
+          run: sed -i 's/<aws_access_secret>/${{ secrets.AWS_SECRET_ACCESS_KEY_ORG }}/' src/main/resources/application.properties
       with:
         fetch-depth: 0
-
+    
     - name: Install kubectl
       uses: azure/setup-kubectl@v3
       with:

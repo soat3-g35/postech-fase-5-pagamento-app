@@ -1,17 +1,19 @@
 services:
-  postgres: 
-    image: postgres:14.3-alpine3.16
-    ports:
-      - "5432:5432"
+  localstack:
+    image: localstack/localstack:0.14.3
     environment:
-      POSTGRES_DB: autoservico
-      POSTGRES_USER: local
-      POSTGRES_PASSWORD: local
-    restart: always
+      - AWS_DEFAULT_REGION=us-east-1
+      - EDGE_PORT=4566
+      - SERVICES=dynamodb
+      - AWS_ACCESS_KEY_ID=localstack
+      - AWS_SECRET_ACCESS_KEY=localstack
+      - KINESIS_PROVIDER=kinesalite
+    ports:
+      - '4566:4566'
     volumes:
-      - data:/var/lib/postgresql/data
-    networks:
-      - backend-postgres
+      - "${TMPDIR:-/tmp/localstack}:/tmp/localstack"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+
   webhook-mock:
     image: mockoon/cli
     platform: linux/x86_64
