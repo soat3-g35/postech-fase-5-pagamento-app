@@ -17,10 +17,10 @@ jobs:
       with:
         fetch-depth: 0
     - name: Update aws access key
-      run: sed -i 's/<aws_access_key>/aaa/g' src/main/resources/application.properties
+      run: sed -i 's/<aws_access_key>/${{ secrets.AWS_ACCESS_KEY_ID_ORG }}/g' src/main/resources/application.properties
 
     - name: Update aws access secret
-      run: sed -i 's/<aws_access_secret>/bbb/g' src/main/resources/application.properties
+      run: sed -i 's/<aws_access_secret>/${{ secrets.AWS_SECRET_ACCESS_KEY_ORG }}/g' src/main/resources/application.properties
     
     - name: Install kubectl
       uses: azure/setup-kubectl@v3
