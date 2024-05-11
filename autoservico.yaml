@@ -1,18 +1,4 @@
 services:
-  postgres: 
-    container_name: db
-    image: postgres:14.3-alpine3.16
-    ports:
-      - "5432:5432"
-    environment:
-      POSTGRES_DB: autoservico
-      POSTGRES_USER: local
-      POSTGRES_PASSWORD: local
-    restart: always
-    volumes:
-      - data:/var/lib/postgresql/data
-    networks:
-      - backend-postgres
   api:
     image: api-img
     build:
