@@ -1,6 +1,7 @@
 package br.com.fiap.pos.soat3.pagamento.infrastructure.config.persistence;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.auth.BasicSessionCredentials;
 import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
@@ -25,8 +26,8 @@ public class DynamoDBConfig {
     @Value("${aws.dynamodb.secretKey}")
     private String dynamodbSecretKey;
 
-    @Value("${aws.dynamo.sessionToken}")
-    private String dynamodbSessionToken;
+//    @Value("${aws.dynamo.sessionToken}")
+//    private String dynamodbSessionToken;
 
     @Bean
     public DynamoDBMapper dynamoDBMapper() {
@@ -44,10 +45,9 @@ public class DynamoDBConfig {
                 )
                 .withCredentials(
                         new AWSStaticCredentialsProvider(
-                                new BasicSessionCredentials(
+                                new BasicAWSCredentials(
                                         dynamodbAccessKey,
-                                        dynamodbSecretKey,
-                                        dynamodbSessionToken
+                                        dynamodbSecretKey
                                 )
                         )
                 )
