@@ -16,11 +16,14 @@ jobs:
     - uses: actions/checkout@v4
       with:
         fetch-depth: 0
-    - name: Update aws access key
-      run: sed -i 's/<aws_access_key>/${{ secrets.AWS_ACCESS_KEY_ID_ORG }}/g' src/main/resources/application.properties
-
-    - name: Update aws access secret
-      run: sed -i 's/<aws_access_secret>/${{ secrets.AWS_SECRET_ACCESS_KEY_ORG }}/g' src/main/resources/application.properties
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_ORG }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_ORG }}
+        aws-region: us-east-1
+#    - name: Update aws access key
+#      run: sed -i 's/<aws_access_key>/${{ secrets.AWS_ACCESS_KEY_ID_ORG }}/g' src/main/resources/application.properties
+#
+#    - name: Update aws access secret
+#      run: sed -i 's/<aws_access_secret>/${{ secrets.AWS_SECRET_ACCESS_KEY_ORG }}/g' src/main/resources/application.properties
     
     - name: Install kubectl
       uses: azure/setup-kubectl@v3
