@@ -16,8 +16,9 @@ jobs:
     - uses: actions/checkout@v4
       with:
         fetch-depth: 0
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID_ORG }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_ORG }}
+        aws-access-key-id: ${{ secrets.AWS_DYNAMODB_ACCESS_KEY }}
+        aws-secret-access-key: ${{ secrets.AWS_DYNAMODB_ACCESS_SECRET }}
+        aws-dynamo-session-token: ${{ secrets.AWS_DYNAMODB_SESSION_TOKEN }}
         aws-region: us-east-1
 
     - name: Analyze with SonarCloud
