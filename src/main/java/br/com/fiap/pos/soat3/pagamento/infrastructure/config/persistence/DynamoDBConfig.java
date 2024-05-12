@@ -14,8 +14,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class DynamoDBConfig {
 
-    @Value("${aws.dynamodb.endpoint}")
-    private String dynamodbEndpoint;
+//    @Value("${aws.dynamodb.endpoint}")
+//    private String dynamodbEndpoint;
 
     @Value("${aws.region}")
     private String awsRegion;
@@ -37,12 +37,13 @@ public class DynamoDBConfig {
     private AmazonDynamoDB buildAmazonDynamoDB() {
         return AmazonDynamoDBClientBuilder
                 .standard()
-                .withEndpointConfiguration(
-                        new AwsClientBuilder.EndpointConfiguration(
-                                dynamodbEndpoint,
-                                awsRegion
-                        )
-                )
+                .withRegion(awsRegion)
+//                .withEndpointConfiguration(
+//                        new AwsClientBuilder.EndpointConfiguration(
+////                                dynamodbEndpoint,
+//                                awsRegion
+//                        )
+//                )
                 .withCredentials(
                         new AWSStaticCredentialsProvider(
                                 new BasicAWSCredentials(
