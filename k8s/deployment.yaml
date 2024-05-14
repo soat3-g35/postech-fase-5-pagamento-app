@@ -3,19 +3,19 @@ kind: Deployment
 metadata:
   creationTimestamp: null
   labels:
-    app: demo
-  name: demo
+    app: pagamento
+  name: pagamento
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: demo
+      app: pagamento
   strategy: {}
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: demo
+        app: pagamento
     spec:
       containers:
         - image: 471112887467.dkr.ecr.us-east-1.amazonaws.com/postech-repository:latest
@@ -48,8 +48,8 @@ kind: Service
 metadata:
   creationTimestamp: null
   labels:
-    app: demo
-  name: demo
+    app: pagamento
+  name: pagamento
 spec:
   ports:
     - name: 8080-8080
@@ -57,13 +57,13 @@ spec:
       protocol: TCP
       targetPort: 8080
   selector:
-    app: demo
+    app: pagamento
   type: LoadBalancer
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: demo-app-ingress
+  name: pagamento-app-ingress
   annotations:
     kubernetes.io/ingress.class: "traefik"
     traefik.ingress.kubernetes.io/router.entrypoints: web
@@ -73,10 +73,10 @@ spec:
     - http:
         paths:
           - pathType: Prefix
-            path: "/demo"
+            path: "/pagamento"
             backend:
               service:
-                name: demo
+                name: pagamento
                 port:
                   number: 8080
 ---
@@ -84,14 +84,14 @@ apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
   creationTimestamp: null
-  name: demo
+  name: pagamento
 spec:
   maxReplicas: 10
   minReplicas: 2
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: demo
+    name: pagamento
   targetCPUUtilizationPercentage: 30
 status:
   currentReplicas: 0

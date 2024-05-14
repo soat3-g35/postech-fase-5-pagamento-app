@@ -1,6 +1,7 @@
 package br.com.fiap.pos.soat3.pagamento.infrastructure.config.persistence;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.auth.BasicSessionCredentials;
 import com.amazonaws.client.builder.AwsClientBuilder;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
@@ -13,8 +14,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class DynamoDBConfig {
 
-    @Value("${aws.dynamodb.endpoint}")
-    private String dynamodbEndpoint;
+//    @Value("${aws.dynamodb.endpoint}")
+//    private String dynamodbEndpoint;
 
     @Value("${aws.region}")
     private String awsRegion;
@@ -36,12 +37,13 @@ public class DynamoDBConfig {
     private AmazonDynamoDB buildAmazonDynamoDB() {
         return AmazonDynamoDBClientBuilder
                 .standard()
-                .withEndpointConfiguration(
-                        new AwsClientBuilder.EndpointConfiguration(
-                                dynamodbEndpoint,
-                                awsRegion
-                        )
-                )
+                .withRegion(awsRegion)
+//                .withEndpointConfiguration(
+//                        new AwsClientBuilder.EndpointConfiguration(
+////                                dynamodbEndpoint,
+//                                awsRegion
+//                        )
+//                )
                 .withCredentials(
                         new AWSStaticCredentialsProvider(
                                 new BasicSessionCredentials(
