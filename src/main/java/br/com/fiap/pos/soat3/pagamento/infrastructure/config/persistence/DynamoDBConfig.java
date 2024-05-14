@@ -14,8 +14,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class DynamoDBConfig {
 
-//    @Value("${aws.dynamodb.endpoint}")
-//    private String dynamodbEndpoint;
+    @Value("${aws.dynamodb.endpoint}")
+    private String dynamodbEndpoint;
 
     @Value("${aws.region}")
     private String awsRegion;
@@ -26,33 +26,36 @@ public class DynamoDBConfig {
     @Value("${aws.dynamodb.secretKey}")
     private String dynamodbSecretKey;
 
-    @Value("${aws.dynamo.sessionToken}")
-    private String dynamodbSessionToken;
-
     @Bean
     public DynamoDBMapper dynamoDBMapper() {
-        return new DynamoDBMapper(buildAmazonDynamoDB());
+        return new DynamoDBMapper(amazonDynamoDBConfig());
     }
 
-    private AmazonDynamoDB buildAmazonDynamoDB() {
-        return AmazonDynamoDBClientBuilder
-                .standard()
-                .withRegion(awsRegion)
-//                .withEndpointConfiguration(
-//                        new AwsClientBuilder.EndpointConfiguration(
-////                                dynamodbEndpoint,
-//                                awsRegion
+    private AmazonDynamoDB amazonDynamoDBConfig() {
+        return AmazonDynamoDBClientBuilder.standard()
+                .withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(dynamodbEndpoint, awsRegion))
+                .withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials(dynamodbAccessKey, dynamodbSecretKey))).build();
+    }
+
+//    private AmazonDynamoDB buildAmazonDynamoDB() {
+//        return AmazonDynamoDBClientBuilder
+//                .standard()
+//                .withRegion(awsRegion)
+////                .withEndpointConfiguration(
+////                        new AwsClientBuilder.EndpointConfiguration(
+//////                                dynamodbEndpoint,
+////                                awsRegion
+////                        )
+////                )
+//                .withCredentials(
+//                        new AWSStaticCredentialsProvider(
+//                                new BasicSessionCredentials(
+//                                        dynamodbAccessKey,
+//                                        dynamodbSecretKey,
+//                                        dynamodbSessionToken
+//                                )
 //                        )
 //                )
-                .withCredentials(
-                        new AWSStaticCredentialsProvider(
-                                new BasicSessionCredentials(
-                                        dynamodbAccessKey,
-                                        dynamodbSecretKey,
-                                        dynamodbSessionToken
-                                )
-                        )
-                )
-                .build();
-    }
+//                .build();
+//    }
 }
