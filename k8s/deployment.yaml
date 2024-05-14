@@ -18,7 +18,7 @@ spec:
         app: pagamento
     spec:
       containers:
-        - image: 471112887467.dkr.ecr.us-east-1.amazonaws.com/postech-repository:latest
+        - image: 471112887467.dkr.ecr.us-east-1.amazonaws.com/pagamento-postech-repository:latest
           imagePullPolicy: Always
           name: api-img
           resources:
