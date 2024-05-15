@@ -7,4 +7,8 @@ public class TesteDoSonar {
     public Integer retornaInteiro() {
         return 1;
     }
+
+    public Integer retornaSegundoInteiro(){
+        return 2;
+    }
 }

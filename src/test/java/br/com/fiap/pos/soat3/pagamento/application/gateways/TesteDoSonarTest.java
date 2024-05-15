@@ -14,5 +14,8 @@ public class TesteDoSonarTest {
     void contextLoads() {
         var inteiro = teste.retornaInteiro();
         Assertions.assertEquals(inteiro,1);
+
+        var inteiro2 = teste.retornaSegundoInteiro();
+        Assertions.assertEquals(inteiro2,2);
     }
 }
