@@ -52,13 +52,16 @@ jobs:
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: mvn verify sonar:sonar \
+      run: mvn -B verify sonar:sonar \
         -Dsonar.host.url=https://sonarcloud.io \
         -Dsonar.organization=soat3-g35 \
         -Dsonar.projectKey=soat3-g35_postech-fase-4-pagamento-app
         
 #    - name: Analyze with SonarCloud
-#      run: mvn -B verify sonar:sonar -Dsonar.projectKey=soat3-g35_postech-fase-4-pagamento-app -Dsonar.organization=soat3-g35 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
+#      run: mvn -B verify sonar:sonar -Dsonar.projectKey=soat3-g35_postech-fase-4-pagamento-app 
+#  -Dsonar.organization=soat3-g35 
+#  -Dsonar.host.url=https://sonarcloud.io 
+#  -Dsonar.login=$SONAR_TOKEN
 #      env:
 #        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 #        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
