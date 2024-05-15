@@ -48,11 +48,20 @@ jobs:
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
         docker push -a $ECR_REGISTRY/$ECR_REPOSITORY
         
-    - name: Analyze with SonarCloud
-      run: mvn -B verify sonar:sonar -Dsonar.projectKey=soat3-g35_postech-fase-4-pagamento-app -Dsonar.organization=soat3-g35 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
+    - name: Build and analyze
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: mvn verify sonar:sonar \
+        -Dsonar.host.url=https://sonarcloud.io \
+        -Dsonar.organization=soat3-g35 \
+        -Dsonar.projectKey=soat3-g35_postech-fase-4-pagamento-app
+        
+#    - name: Analyze with SonarCloud
+#      run: mvn -B verify sonar:sonar -Dsonar.projectKey=soat3-g35_postech-fase-4-pagamento-app -Dsonar.organization=soat3-g35 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
+#      env:
+#        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         
     - name: Update Kube File
       run: aws eks update-kubeconfig --name g35-eks-cluster
