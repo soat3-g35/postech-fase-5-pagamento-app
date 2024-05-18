@@ -9,8 +9,6 @@ import br.com.fiap.pos.soat3.pagamento.infrastructure.integration.messaging.Upda
 import br.com.fiap.pos.soat3.pagamento.infrastructure.controllers.PagamentoDTOMapper;
 import br.com.fiap.pos.soat3.pagamento.infrastructure.gateways.PagamentoEntityMapper;
 import br.com.fiap.pos.soat3.pagamento.infrastructure.gateways.PagamentoRepositoryGateway;
-import br.com.fiap.pos.soat3.pagamento.infrastructure.integration.api.EnviaConfirmacaoMock;
-import br.com.fiap.pos.soat3.pagamento.infrastructure.integration.api.MVPCliente;
 import br.com.fiap.pos.soat3.pagamento.infrastructure.persistence.PagamentoRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -41,10 +39,6 @@ public class PagamentoBeanConfig {
     EnviaConfirmacaoInteractor enviaConfirmacaoInteractor(EnviaConfirmacaoGateway enviaConfirmacaoGateway,
                                                           PagamentoGateway pagamentoGateway,UpdatePagamentoStatusPublisher updatePagamentoStatusPublisher) {
         return new EnviaConfirmacaoInteractor(enviaConfirmacaoGateway, pagamentoGateway, updatePagamentoStatusPublisher);
-    }
-    @Bean
-    EnviaConfirmacaoMock enviaConfirmacaoGateway(MVPCliente MVPCliente) {
-        return new EnviaConfirmacaoMock(MVPCliente);
     }
 
     @Bean

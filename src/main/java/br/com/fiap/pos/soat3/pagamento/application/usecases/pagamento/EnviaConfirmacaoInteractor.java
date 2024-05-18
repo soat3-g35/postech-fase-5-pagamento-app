@@ -19,10 +19,11 @@ public class EnviaConfirmacaoInteractor {
         this.pagamentoGateway = pagamentoGateway;
         this.updatePagamentoStatusPublisher = updatePagamentoStatusPublisher;
     }
-    public void enviaConfirmacao(String pagamentoId, String pedidoId) {
+    public ConfirmacaoResponse enviaConfirmacao(String pagamentoId, String pedidoId) {
         
         ConfirmacaoResponse response = enviaConfirmacaoGateway.enviaConfirmacaoMVP(pagamentoId,pedidoId);
         updatePagamentoStatusPublisher.publishMessage(pedidoId, response.getResultado());
         pagamentoGateway.atualizaPagamento(pagamentoId, response.getResultado());
+        return response;
     }
 }
