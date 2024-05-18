@@ -25,7 +25,7 @@ class EnviaConfirmacaoInteractorTest {
     @Mock
     private PagamentoGateway pagamentoGateway;
 
-    @InjectMocks
+    @Mock
     private EnviaConfirmacaoInteractor useCase;
 
     @Test
@@ -37,7 +37,7 @@ class EnviaConfirmacaoInteractorTest {
 
         when(useCase.enviaConfirmacao( "1", "1")).thenReturn(expected);
 
-        ConfirmacaoResponse confirmacaoResponse = gateway.enviaConfirmacaoMVP("1", "1");
+        ConfirmacaoResponse confirmacaoResponse = useCase.enviaConfirmacao("1", "1");
 
         assertEquals(expected, confirmacaoResponse);
 
