@@ -32,7 +32,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @ExtendWith(MockitoExtension.class)
-public class PagamentoControllerTest {
+class PagamentoControllerTest {
     
     private MockMvc mvc;
     @Mock 
@@ -48,18 +48,12 @@ public class PagamentoControllerTest {
     private PagamentoController pagamentoController;
 
     private JacksonTester<PagamentoRequest> jsonPagamentoRequest;
-    private JacksonTester<Pagamento> jsonPagamento;
 
     @BeforeEach
     public void setup() {
-        // We would need this line if we would not use the MockitoExtension
-        // MockitoAnnotations.initMocks(this);
-        // Here we can't use @AutoConfigureJsonTesters because there isn't a Spring context
-        JacksonTester.initFields(this, new ObjectMapper());
-        // MockMvc standalone approach
+         JacksonTester.initFields(this, new ObjectMapper());
+        
         mvc = MockMvcBuilders.standaloneSetup(pagamentoController)
-//                .setControllerAdvice(new SuperHeroExceptionHandler())
-//                .addFilters(new SuperHeroFilter())
                 .build();
     }
     
@@ -96,8 +90,7 @@ public class PagamentoControllerTest {
                 patch(String.format("/pagamento/%s/pedido/%s/envia-confirmacao", pagamentoId, pedidoId))
                         .contentType(MediaType.APPLICATION_JSON))
                         .andReturn().getResponse();
-
-
+        
         // then
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
     }
