@@ -4,7 +4,8 @@ import br.com.fiap.pos.soat3.pagamento.application.gateways.PagamentoGateway;
 import br.com.fiap.pos.soat3.pagamento.application.gateways.RealizaPagamentoMockGateway;
 import br.com.fiap.pos.soat3.pagamento.domain.entity.Pagamento;
 import br.com.fiap.pos.soat3.pagamento.domain.entity.StatusPagamento;
-import br.com.fiap.pos.soat3.pagamento.infrastructure.integration.MVPResponse;
+import br.com.fiap.pos.soat3.pagamento.infrastructure.integration.messaging.UpdatePagamentoStatusPublisher;
+import br.com.fiap.pos.soat3.pagamento.infrastructure.integration.api.MVPResponse;
 import br.com.fiap.pos.soat3.pagamento.infrastructure.persistence.PagamentoRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,14 +18,16 @@ public class PagamentoRepositoryGateway implements PagamentoGateway {
     private final PagamentoRepository pagamentoRepository;
     private final PagamentoEntityMapper pagamentoEntityMapper;
     private final RealizaPagamentoMockGateway realizaPagamentoMockGateway;
+    private final UpdatePagamentoStatusPublisher updatePagamentoStatusPublisher;
 
     public PagamentoRepositoryGateway(final PagamentoRepository pagamentoRepository,
                                       final PagamentoEntityMapper pagamentoEntityMapper,
-                                      final RealizaPagamentoMockGateway realizaPagamentoMockGateway) {
+                                      final RealizaPagamentoMockGateway realizaPagamentoMockGateway,
+                                      UpdatePagamentoStatusPublisher updatePagamentoStatusPublisher) {
         this.pagamentoRepository = pagamentoRepository;
         this.pagamentoEntityMapper = pagamentoEntityMapper;
         this.realizaPagamentoMockGateway = realizaPagamentoMockGateway;
-
+        this.updatePagamentoStatusPublisher = updatePagamentoStatusPublisher;
     }
 
     @Override
@@ -38,9 +41,11 @@ public class PagamentoRepositoryGateway implements PagamentoGateway {
 
         var pagamentoEntity = pagamentoEntityMapper.toEntity(pagamento);
         pagamento.setPagamentoId(pagamentoRepository.criaPagamento(pagamentoEntity));
-
+        updatePagamentoStatusPublisher.publishMessage(pagamento.getPedidoId(), 
+                pagamento.getStatus().getStatus());
         
-        log.info(String.format("Lanchonete: Pagamento do pedido  %s gerado", pagamento.getPagamentoId()));
+        log.info(String.format("Lanchonete: Pagamento do pedido  %s gerado",
+                pagamento.getPagamentoId()));
         return pagamento;
     }
 
