@@ -5,11 +5,12 @@ import br.com.fiap.pos.soat3.pagamento.application.gateways.PagamentoGateway;
 import br.com.fiap.pos.soat3.pagamento.application.gateways.RealizaPagamentoMockGateway;
 import br.com.fiap.pos.soat3.pagamento.application.usecases.pagamento.EnviaConfirmacaoInteractor;
 import br.com.fiap.pos.soat3.pagamento.application.usecases.pagamento.RealizaPagamentoInteractor;
+import br.com.fiap.pos.soat3.pagamento.infrastructure.integration.messaging.UpdatePagamentoStatusPublisher;
 import br.com.fiap.pos.soat3.pagamento.infrastructure.controllers.PagamentoDTOMapper;
 import br.com.fiap.pos.soat3.pagamento.infrastructure.gateways.PagamentoEntityMapper;
 import br.com.fiap.pos.soat3.pagamento.infrastructure.gateways.PagamentoRepositoryGateway;
-import br.com.fiap.pos.soat3.pagamento.infrastructure.integration.EnviaConfirmacaoMock;
-import br.com.fiap.pos.soat3.pagamento.infrastructure.integration.MVPCliente;
+import br.com.fiap.pos.soat3.pagamento.infrastructure.integration.api.EnviaConfirmacaoMock;
+import br.com.fiap.pos.soat3.pagamento.infrastructure.integration.api.MVPCliente;
 import br.com.fiap.pos.soat3.pagamento.infrastructure.persistence.PagamentoRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,8 +26,10 @@ public class PagamentoBeanConfig {
     @Bean
     PagamentoRepositoryGateway pagamentoRepositoryGateway(PagamentoRepository pagamentoRepository,
                                                           PagamentoEntityMapper pagamentoEntityMapper,
-                                                          RealizaPagamentoMockGateway realizaPagamentoMockGateway) {
-        return new PagamentoRepositoryGateway(pagamentoRepository, pagamentoEntityMapper, realizaPagamentoMockGateway);
+                                                          RealizaPagamentoMockGateway realizaPagamentoMockGateway,
+                                                          UpdatePagamentoStatusPublisher updatePagamentoStatusPublisher) {
+        return new PagamentoRepositoryGateway(pagamentoRepository, pagamentoEntityMapper, realizaPagamentoMockGateway,
+                updatePagamentoStatusPublisher);
     }
 
     @Bean
@@ -35,8 +38,9 @@ public class PagamentoBeanConfig {
     }
 
     @Bean
-    EnviaConfirmacaoInteractor enviaConfirmacaoInteractor(EnviaConfirmacaoGateway enviaConfirmacaoGateway, PagamentoGateway pagamentoGateway) {
-        return new EnviaConfirmacaoInteractor(enviaConfirmacaoGateway, pagamentoGateway);
+    EnviaConfirmacaoInteractor enviaConfirmacaoInteractor(EnviaConfirmacaoGateway enviaConfirmacaoGateway,
+                                                          PagamentoGateway pagamentoGateway,UpdatePagamentoStatusPublisher updatePagamentoStatusPublisher) {
+        return new EnviaConfirmacaoInteractor(enviaConfirmacaoGateway, pagamentoGateway, updatePagamentoStatusPublisher);
     }
     @Bean
     EnviaConfirmacaoMock enviaConfirmacaoGateway(MVPCliente MVPCliente) {

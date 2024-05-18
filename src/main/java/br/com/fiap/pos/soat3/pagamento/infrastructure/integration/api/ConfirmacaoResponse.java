@@ -1,4 +1,4 @@
-package br.com.fiap.pos.soat3.pagamento.infrastructure.integration;
+package br.com.fiap.pos.soat3.pagamento.infrastructure.integration.api;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
