@@ -5,16 +5,19 @@ import br.com.fiap.pos.soat3.pagamento.application.gateways.PagamentoGateway;
 import br.com.fiap.pos.soat3.pagamento.domain.entity.Pagamento;
 import br.com.fiap.pos.soat3.pagamento.domain.entity.StatusPagamento;
 import br.com.fiap.pos.soat3.pagamento.infrastructure.controllers.ConfirmacaoResponse;
+import br.com.fiap.pos.soat3.pagamento.infrastructure.integration.messaging.UpdatePagamentoStatusPublisher;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -26,6 +29,9 @@ class EnviaConfirmacaoInteractorTest {
     private PagamentoGateway pagamentoGateway;
 
     @Mock
+    private UpdatePagamentoStatusPublisher updatePagamentoStatusPublisher;
+
+    @InjectMocks
     private EnviaConfirmacaoInteractor useCase;
 
     @Test
@@ -35,9 +41,27 @@ class EnviaConfirmacaoInteractorTest {
                 StatusPagamento.RECEBIDO.name()
         );
 
-        when(useCase.enviaConfirmacao( "1", "1")).thenReturn(expected);
+        when(gateway.enviaConfirmacaoMVP( "1", "1")).thenReturn(expected);
 
         ConfirmacaoResponse confirmacaoResponse = useCase.enviaConfirmacao("1", "1");
+        
+        assertEquals(expected, confirmacaoResponse);
+
+    }
+
+    @Test
+    void givenCorrectData_whenEnviaConfirmacao_shouldReturnVerify() {
+
+        ConfirmacaoResponse expected = new ConfirmacaoResponse(
+                StatusPagamento.RECEBIDO.name()
+        );
+
+        when(gateway.enviaConfirmacaoMVP( "1", "1")).thenReturn(expected);
+
+        ConfirmacaoResponse confirmacaoResponse = useCase.enviaConfirmacao("1", "1");
+
+        verify(gateway, times(1)).enviaConfirmacaoMVP("1", "1");
+        verify(pagamentoGateway, times(1)).atualizaPagamento("1", StatusPagamento.RECEBIDO.name());
 
         assertEquals(expected, confirmacaoResponse);
 
