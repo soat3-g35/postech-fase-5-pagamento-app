@@ -11,7 +11,7 @@ public class PagamentoDTOMapper {
         return pagamento;
     }
 
-    RealizaPagamentoResponse toResponse(Pagamento pagamento) {
+    public RealizaPagamentoResponse toResponse(Pagamento pagamento) {
         return new RealizaPagamentoResponse(
                 pagamento.getPagamentoId(),
                 pagamento.getPedidoId(),
