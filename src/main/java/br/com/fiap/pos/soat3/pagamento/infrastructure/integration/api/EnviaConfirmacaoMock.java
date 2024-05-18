@@ -13,6 +13,6 @@ public class EnviaConfirmacaoMock implements EnviaConfirmacaoGateway {
 
     @Override
     public ConfirmacaoResponse enviaConfirmacaoMVP(String pagamentoId, String pedidoID) {
-        return mVPCliente.verificaPagamentoMock(pagamentoId).getBody();
+        return new ConfirmacaoResponse("RECEBIDO");
     }
 }
