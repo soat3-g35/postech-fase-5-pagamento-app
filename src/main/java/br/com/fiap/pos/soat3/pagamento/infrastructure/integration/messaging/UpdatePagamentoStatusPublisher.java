@@ -16,7 +16,6 @@ public class UpdatePagamentoStatusPublisher {
     
     @Value("${aws.queueName}")
     private String queueName;
-
     private final AmazonSQS amazonSQSClient;
     private final ObjectMapper objectMapper;
 
@@ -36,7 +35,7 @@ public class UpdatePagamentoStatusPublisher {
         } catch (Exception e) {
             log.error("Queue Exception Message: {}", e.getMessage());
         }
-
     }
+    
 }
 
