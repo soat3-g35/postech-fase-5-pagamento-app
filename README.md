@@ -8,6 +8,9 @@ Projeto da Pós Tech da FIAP em Software Architecture
 ## Descrição do Projeto
 Este módulo é responsável pela aplicação de Pagamento do nosso sistema de lanchonete.
 
+## Arquitetura
+![Diagrama](https://iili.io/JiJntae.md.png)
+
 ## Funcionalidades
 
 - Cria Pagamento
