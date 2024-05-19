@@ -13,3 +13,6 @@ Este módulo é responsável pela aplicação de Pagamento do nosso sistema de l
 - Cria Pagamento
 - Atualiza status do Pagamento
 - Envia confirmação
+
+## Code Coverage
+![Diagrama](https://iili.io/JiHkllp.md.png)
