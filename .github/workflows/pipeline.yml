@@ -49,6 +49,12 @@ jobs:
         docker push -a $ECR_REGISTRY/$ECR_REPOSITORY
         
     - name: Analyze with SonarCloud
+      uses: docker:dind
+#      variables:
+#        LOCAL_STACK_HOST: 172.17.0.1
+#        DOCKER_HOST: "tcp://docker:2375"
+#        DOCKER_TLS_CERTDIR: ""
+#        DOCKER_DRIVER: overlay2
       run: mvn -B verify sonar:sonar -Dsonar.projectKey=soat3-g35_postech-fase-4-pagamento-app -Dsonar.organization=soat3-g35 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
