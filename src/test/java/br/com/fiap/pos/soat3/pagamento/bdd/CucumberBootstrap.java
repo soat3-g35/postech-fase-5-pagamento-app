@@ -27,7 +27,7 @@ public class CucumberBootstrap {
     public static DockerComposeContainer environment =
             new DockerComposeContainer(new File("local-autoservico.yaml"))
                     .withLocalCompose(true)
-                    .withOptions("--compatibility")
+//                    .withOptions("--compatibility")
                     .withExposedService("localstack", 4566,
                             Wait.forListeningPort()
                     );
