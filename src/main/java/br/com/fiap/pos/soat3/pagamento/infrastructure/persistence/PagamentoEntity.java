@@ -6,9 +6,6 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import java.time.LocalDateTime;
-import java.util.Date;
-
 @DynamoDBTable(tableName = "pagamento-service-table")
 public class PagamentoEntity {
     @DynamoDBAttribute(attributeName = "pagamento-id")

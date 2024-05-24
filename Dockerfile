@@ -4,7 +4,7 @@ WORKDIR usr/src/app
 
 COPY . ./
 
-RUN mvn clean package verify
+RUN mvn clean package verify -DskipTests=true
 
 FROM openjdk:17-slim
 

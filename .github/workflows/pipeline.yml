@@ -48,6 +48,11 @@ jobs:
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
         docker push -a $ECR_REGISTRY/$ECR_REPOSITORY
         
+    - name: Setup Testcontainers Cloud Client
+      uses: atomicjar/testcontainers-cloud-setup-action@v1
+      with:
+        token: ${{ secrets.TC_CLOUD_TOKEN }}
+        
     - name: Analyze with SonarCloud
       run: mvn -B verify sonar:sonar -Dsonar.projectKey=soat3-g35_postech-fase-4-pagamento-app -Dsonar.organization=soat3-g35 -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
       env:
