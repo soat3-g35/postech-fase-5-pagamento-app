@@ -4,6 +4,7 @@ import br.com.fiap.pos.soat3.pagamento.domain.entity.Pagamento;
 
 public interface PagamentoGateway {
     Pagamento realizaPagamento(Pagamento pagamento);
+    Pagamento findById(Long pagamentoId);
 
-    void atualizaPagamento(String pagamentoId, String resultado);
+    void atualizaPagamento(Long pagamentoId, String resultado);
 }

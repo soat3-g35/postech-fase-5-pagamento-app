@@ -30,8 +30,8 @@ import static org.mockito.Mockito.when;
 @TestPropertySource(properties = { "aws.queueName=update-pagamento-queue", "aws.endpoint=update-pagamento-queue", "aws.region=us-east-1" })
 class UpdatePagamentoStatusPublisherTest { 
     
-    @InjectMocks
-    UpdatePagamentoStatusPublisher updatePagamentoStatusPublisher;
+//    @InjectMocks
+//    UpdatePagamentoStatusPublisher updatePagamentoStatusPublisher;
 
     @Mock
     ObjectMapper objectMapper;
@@ -39,11 +39,11 @@ class UpdatePagamentoStatusPublisherTest {
     @Mock
     AmazonSQS amazonSQSClient;
 
-    @BeforeEach
-    void initService() {
-        amazonSQSClient = mock(AmazonSQS.class);
-        updatePagamentoStatusPublisher = new UpdatePagamentoStatusPublisher(amazonSQSClient, objectMapper);
-    }
+//    @BeforeEach
+//    void initService() {
+//        amazonSQSClient = mock(AmazonSQS.class);
+//        updatePagamentoStatusPublisher = new UpdatePagamentoStatusPublisher(amazonSQSClient, objectMapper);
+//    }
     
 //    @Test
 //    void checkPublishMessage() throws JsonProcessingException {

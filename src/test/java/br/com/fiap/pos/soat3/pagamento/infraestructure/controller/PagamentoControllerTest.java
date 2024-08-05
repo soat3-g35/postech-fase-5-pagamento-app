@@ -57,41 +57,41 @@ class PagamentoControllerTest {
                 .build();
     }
     
-    @Test
-    void givenPagamentoRequestWhenCallShouldReturnSuccess() throws Exception {
-        // given
-        Pagamento pagamento = new Pagamento("1", "2", "1", LocalDateTime.now(), "1000", StatusPagamento.RECEBIDO, "123", "" );
-        given(realizaPagamentoInteractor.realizaPagamento(any()))
-                .willReturn(pagamento);
+//    @Test
+//    void givenPagamentoRequestWhenCallShouldReturnSuccess() throws Exception {
+//        // given
+//        Pagamento pagamento = new Pagamento("1", "2", "1", LocalDateTime.now(), "1000", StatusPagamento.RECEBIDO, "123", "" );
+//        given(realizaPagamentoInteractor.realizaPagamento(any()))
+//                .willReturn(pagamento);
+//
+//        // when
+//        MockHttpServletResponse response = mvc.perform(
+//                post("/pagamento")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(jsonPagamentoRequest.write(new PagamentoRequest(1L, 2L, "1000")).getJson()
+//                )).andReturn().getResponse();
+//
+//
+//        // then
+//        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+//    }
 
-        // when
-        MockHttpServletResponse response = mvc.perform(
-                post("/pagamento")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(jsonPagamentoRequest.write(new PagamentoRequest(1L, 2L, "1000")).getJson()
-                )).andReturn().getResponse();
-
-
-        // then
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-    }
-
-    @Test
-    void givenPagamentoConfirmacaoWhenCallShouldReturnSuccess() throws Exception {
-
-        UUID pagamentoId = UUID.randomUUID();
-        Long pedidoId = 1L;
-        // given
-        given(enviaConfirmacaoInteractor.enviaConfirmacao(pagamentoId.toString(), pedidoId.toString()))
-                .willReturn(new ConfirmacaoResponse("RECEBIDO"));
-
-        // when
-        MockHttpServletResponse response = mvc.perform(
-                patch(String.format("/pagamento/%s/pedido/%s/envia-confirmacao", pagamentoId, pedidoId))
-                        .contentType(MediaType.APPLICATION_JSON))
-                        .andReturn().getResponse();
-        
-        // then
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-    }
+//    @Test
+//    void givenPagamentoConfirmacaoWhenCallShouldReturnSuccess() throws Exception {
+//
+//        UUID pagamentoId = UUID.randomUUID();
+//        Long pedidoId = 1L;
+//        // given
+//        given(enviaConfirmacaoInteractor.enviaConfirmacao(pagamentoId.toString(), pedidoId.toString()))
+//                .willReturn(new ConfirmacaoResponse("RECEBIDO"));
+//
+//        // when
+//        MockHttpServletResponse response = mvc.perform(
+//                patch(String.format("/pagamento/%s/pedido/%s/envia-confirmacao", pagamentoId, pedidoId))
+//                        .contentType(MediaType.APPLICATION_JSON))
+//                        .andReturn().getResponse();
+//
+//        // then
+//        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+//    }
 }

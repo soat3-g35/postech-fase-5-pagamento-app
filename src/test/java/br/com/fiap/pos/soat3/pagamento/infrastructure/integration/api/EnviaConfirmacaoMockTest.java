@@ -1,6 +1,5 @@
 package br.com.fiap.pos.soat3.pagamento.infrastructure.integration.api;
 
-import br.com.fiap.pos.soat3.pagamento.infrastructure.controllers.ConfirmacaoResponse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,7 @@ public class EnviaConfirmacaoMockTest {
 
     @Test
     void contextLoads() {
-        var result = enviaConfirmacaoMock.enviaConfirmacaoMVP("pagamentoId", "pedidoId");
+        var result = enviaConfirmacaoMock.enviaConfirmacaoMVP(1L, "pedidoId");
         Assertions.assertEquals ("RECEBIDO", result.getResultado());
     }
 }

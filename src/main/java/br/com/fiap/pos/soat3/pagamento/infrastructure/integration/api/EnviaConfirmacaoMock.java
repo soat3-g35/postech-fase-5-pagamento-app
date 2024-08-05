@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 public class EnviaConfirmacaoMock implements EnviaConfirmacaoGateway {
 
     @Override
-    public ConfirmacaoResponse enviaConfirmacaoMVP(String pagamentoId, String pedidoID) {
+    public ConfirmacaoResponse enviaConfirmacaoMVP(Long pagamentoId, String pedidoID) {
         return new ConfirmacaoResponse("RECEBIDO");
     }
 }

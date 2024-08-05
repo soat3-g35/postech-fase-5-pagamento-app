@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class Pagamento {
 
-    private String pagamentoId;
+    private Long pagamentoId;
 
     private String pedidoId;
 
@@ -24,7 +24,7 @@ public class Pagamento {
 
     }
 
-    public Pagamento(String pagamentoId, String pedidoId, String clienteId, LocalDateTime dataDeCriacao, String valor, StatusPagamento status, String qrCode, String webhook) {
+    public Pagamento(Long pagamentoId, String pedidoId, String clienteId, LocalDateTime dataDeCriacao, String valor, StatusPagamento status, String qrCode, String webhook) {
         this.pagamentoId = pagamentoId;
         this.pedidoId = pedidoId;
         this.clienteId = clienteId;
@@ -35,11 +35,11 @@ public class Pagamento {
         this.webhook = webhook;
     }
 
-    public String getPagamentoId() {
+    public Long getPagamentoId() {
         return pagamentoId;
     }
 
-    public void setPagamentoId(String pagamentoId) {
+    public void setPagamentoId(Long pagamentoId) {
         this.pagamentoId = pagamentoId;
     }
 
